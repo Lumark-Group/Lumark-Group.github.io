@@ -75,7 +75,11 @@
                     const data = await res.json();
                     const el = document.getElementById(`count-${p}`);
                     if (el) el.innerText = data.count || 0;
-                } catch (e) { console.log(`Esperando datos de ${p}...`); }
+                } catch (e) { 
+                    console.log(`Error al pedir datos de ${p}:`, e); 
+                    const el = document.getElementById(`count-${p}`);
+                    if (el && el.innerText === "...") el.innerText = "Error/Bloqueado";
+                }
             }
         }
 
