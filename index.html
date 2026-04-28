@@ -23,6 +23,16 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 
     <link rel="stylesheet" href="styles.css">
+
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-46KCJW753M"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      gtag('config', 'G-46KCJW753M');
+    </script>
 </head>
 
 <body>
@@ -69,8 +79,15 @@
         const GITHUB_USER = "Lumark-Group"; // CAMBIA ESTO
 
         async function trackClick(platform) {
+            // 1. Registro en Google Analytics 4 (Métrica con Fechas)
+            if (typeof gtag === 'function') {
+                gtag('event', 'click_social', {
+                    'plataforma': platform
+                });
+            }
+
             try {
-                // Esta línea le suma 1 al contador de esa red social en la nube
+                // 2. Registro en CounterAPI (Odómetro Total)
                 await fetch(`https://api.counterapi.dev/v1/${GITHUB_USER}/${platform}/up`, {
                     keepalive: true,
                     mode: 'no-cors'
