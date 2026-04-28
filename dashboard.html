@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="robots" content="noindex, nofollow">
+    <title>Dashboard de Métricas | Lumark</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 20px;
+            width: 100%;
+            max-width: 800px;
+            margin-top: 30px;
+        }
+
+        .stat-card {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            padding: 20px;
+            border-radius: 15px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .stat-number {
+            font-size: 2rem;
+            font-weight: bold;
+            color: #25d366;
+        }
+    </style>
+</head>
+
+<body>
+    <main class="main-container" style="flex-direction: column;">
+        <h1>Métricas de Clics</h1>
+        <div class="stats-grid" id="stats-container">
+            <div class="stat-card">
+                <h3>Catálogo</h3>
+                <p class="stat-number" id="count-catalogo">...</p>
+            </div>
+            <div class="stat-card">
+                <h3>WhatsApp</h3>
+                <p class="stat-number" id="count-whatsapp">...</p>
+            </div>
+            <div class="stat-card">
+                <h3>Facebook</h3>
+                <p class="stat-number" id="count-facebook">...</p>
+            </div>
+            <div class="stat-card">
+                <h3>Instagram</h3>
+                <p class="stat-number" id="count-instagram">...</p>
+            </div>
+            <div class="stat-card">
+                <h3>TikTok</h3>
+                <p class="stat-number" id="count-tiktok">...</p>
+            </div>
+        </div>
+        <p style="margin-top: 20px; opacity: 0.6;">Los datos se actualizan automáticamente.</p>
+    </main>
+
+    <script>
+        const GITHUB_USER = "Lumark-Group"; // DEBE SER EL MISMO DE INDEX
+        const platforms = ['catalogo', 'whatsapp', 'facebook', 'instagram', 'tiktok'];
+
+        async function updateStats() {
+            // REGLA DE MENTOR: No pedir datos si la pestaña no se está viendo
+            if (document.hidden) return;
+
+            for (const p of platforms) {
+                try {
+                    const res = await fetch(`https://api.counterapi.dev/v1/${GITHUB_USER}/${p}`);
+                    const data = await res.json();
+                    const el = document.getElementById(`count-${p}`);
+                    if (el) el.innerText = data.count || 0;
+                } catch (e) { console.log(`Esperando datos de ${p}...`); }
+            }
+        }
+
+        // Actualizar cada 5 segundos
+        const interval = setInterval(updateStats, 5000);
+        updateStats();
+
+        // Limpiar recursos si se cierra
+        document.addEventListener("visibilitychange", () => {
+            if (document.hidden) console.log("Ahorrando batería: pausa de métricas.");
+        });
+    </script>
+</body>
+
+</html>

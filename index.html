@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Lumark Realty Group | Inversiones y Propiedades</title>
+    <meta name="description"
+        content="Asesoría profesional en bienes raíces. Compra, vende e invierte en propiedades de alto valor.">
+    <link rel="canonical" href="https://tunombredeusuario.github.io/">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://tunombredeusuario.github.io/">
+    <meta property="og:title" content="Lumark Realty Group | Inversiones y Propiedades">
+    <meta property="og:description" content="Asesoría profesional en bienes raíces. Propiedades de alto valor.">
+    <meta property="og:image" content="https://Lumark-Group.github.io/og-image.webp">
+    <link rel="icon" href="favicon.ico" type="image/x-icon">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+    <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+    <main class="main-container">
+        <article class="profile-card">
+
+            <div class="profile-header">
+                <img src="logo.webp" alt="Logotipo Lumark Realty Group" class="profile-logo" fetchpriority="high"
+                    decoding="async">
+            </div>
+
+            <div class="profile-body">
+                <h1 class="profile-title">Lumark Group</h1>
+                <p class="profile-description">
+                    Te ayudamos a comprar, vender e invertir en bienes raíces con asesoría profesional y oportunidades
+                    de alto valor.
+                </p>
+            </div>
+
+            <div class="profile-cta">
+                <a href="PDF PRUEBA.pdf" download="PDF PRUEBA.pdf" target="_blank" rel="noopener noreferrer" class="cta-button">
+                    DESCARGAR CATALOGO DE PROPIEDADES
+                </a>
+            </div>
+
+            <nav class="social-bar">
+                <a href="#" class="social-link facebook" target="_blank" rel="noopener noreferrer">
+                    <i class="fab fa-facebook-f"></i>
+                </a>
+                <a href="#" class="social-link whatsapp" target="_blank" rel="noopener noreferrer">
+                    <i class="fab fa-whatsapp"></i>
+                </a>
+                <a href="#" class="social-link instagram" target="_blank" rel="noopener noreferrer">
+                    <i class="fab fa-instagram"></i>
+                </a>
+                <a href="#" class="social-link tiktok" target="_blank" rel="noopener noreferrer">
+                    <i class="fab fa-tiktok"></i>
+                </a>
+            </nav>
+        </article>
+    </main>
+
+    <script>
+        const GITHUB_USER = "Lumark-Group"; // CAMBIA ESTO
+
+        async function trackClick(platform) {
+            try {
+                // Esta línea le suma 1 al contador de esa red social en la nube
+                await fetch(`https://api.counterapi.dev/v1/${GITHUB_USER}/${platform}/up`);
+            } catch (error) {
+                console.error("Error al trackear:", error);
+            }
+        }
+
+        // Debounce para evitar clics accidentales múltiples
+        function debounce(func, wait) {
+            let timeout;
+            return function (...args) {
+                clearTimeout(timeout);
+                timeout = setTimeout(() => func.apply(this, args), wait);
+            };
+        }
+
+        document.querySelectorAll('.social-link, .cta-button').forEach(el => {
+            el.addEventListener('click', debounce((e) => {
+                // Usamos 'el' en lugar de 'e.currentTarget' porque el evento expira tras el timeout
+                const platform = el.classList.contains('cta-button')
+                    ? 'catalogo'
+                    : el.className.split(' ')[1];
+
+                trackClick(platform);
+            }, 300));
+        });
+    </script>
+</body>
+
+</html>
