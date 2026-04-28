@@ -71,7 +71,7 @@
 
             for (const p of platforms) {
                 try {
-                    const res = await fetch(`https://api.counterapi.dev/v1/${GITHUB_USER}/${p}`);
+                    const res = await fetch(`https://api.counterapi.dev/v1/${GITHUB_USER}/${p}/`);
                     const data = await res.json();
                     const el = document.getElementById(`count-${p}`);
                     if (el) el.innerText = data.count || 0;
