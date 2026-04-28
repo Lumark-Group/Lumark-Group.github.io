@@ -71,9 +71,12 @@
         async function trackClick(platform) {
             try {
                 // Esta línea le suma 1 al contador de esa red social en la nube
-                await fetch(`https://api.counterapi.dev/v1/${GITHUB_USER}/${platform}/up`);
+                await fetch(`https://api.counterapi.dev/v1/${GITHUB_USER}/${platform}/up`, {
+                    keepalive: true,
+                    mode: 'no-cors'
+                });
             } catch (error) {
-                console.error("Error al trackear:", error);
+                // Falla silenciosa: si hay AdBlock, la página sigue funcionando perfecto
             }
         }
 
