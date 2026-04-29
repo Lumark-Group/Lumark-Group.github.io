@@ -1,0 +1,341 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Membrete y SEO -->
+    <title>Catálogo de Propiedades | Lumark Realty Group</title>
+    <meta name="description" content="Explora nuestro catálogo de propiedades de alto valor. Compra e invierte en bienes raíces.">
+    
+    <!-- Google Fonts y FontAwesome -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    
+    <!-- Vinculamos los estilos globales (fondo animado de video) -->
+    <link rel="stylesheet" href="css/styles.css">
+
+    <!-- Google tag (gtag.js) copiado de index.html -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-46KCJW753M"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag() { dataLayer.push(arguments); }
+        gtag('js', new Date());
+        gtag('config', 'G-46KCJW753M');
+    </script>
+
+    <!-- Estilos exclusivos y mejorados (Premium Glassmorphism) para el catálogo -->
+    <style>
+        /* El fondo de video y reseteo vienen de styles.css, aquí solo estilamos las tarjetas */
+        
+        .catalog-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 30px;
+            position: relative;
+            z-index: 1; /* Asegura que esté por encima del video */
+        }
+
+        .property-card {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(15px);
+            -webkit-backdrop-filter: blur(15px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+            transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+            display: flex;
+            flex-direction: column;
+            color: #ffffff;
+        }
+
+        .property-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 12px 40px rgba(0, 0, 0, 0.4);
+            border-color: rgba(255, 255, 255, 0.4);
+        }
+
+        .property-header {
+            background: rgba(0, 0, 0, 0.4);
+            padding: 15px;
+            text-align: center;
+            font-weight: bold;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            font-size: 0.9em;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .property-body {
+            padding: 25px;
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .property-price {
+            font-size: 1.8em;
+            color: #ffffff;
+            font-weight: bold;
+            margin-bottom: 10px;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.5);
+        }
+
+        .property-location {
+            font-size: 0.95em;
+            color: #ccc;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .property-features {
+            list-style: none;
+            padding: 0;
+            margin: 0 0 20px 0;
+            flex-grow: 1;
+        }
+
+        .property-features li {
+            padding: 10px 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            font-size: 0.95em;
+            display: flex;
+            align-items: center;
+        }
+        
+        .property-features li i {
+            color: #25d366; /* Verde de WhatsApp como acento */
+            margin-right: 12px;
+            font-size: 0.9em;
+        }
+
+        .property-features li:last-child {
+            border-bottom: none;
+        }
+
+        .property-badge {
+            align-self: flex-start;
+            background: rgba(37, 211, 102, 0.2);
+            color: #4ade80;
+            border: 1px solid rgba(37, 211, 102, 0.4);
+            padding: 6px 12px;
+            border-radius: 50px;
+            font-size: 0.8em;
+            font-weight: bold;
+            margin-top: 10px;
+            margin-bottom: 25px;
+            letter-spacing: 0.5px;
+        }
+
+        .property-cta {
+            display: block;
+            text-align: center;
+            background: #ffffff;
+            color: #000000;
+            text-decoration: none;
+            padding: 16px;
+            border-radius: 50px;
+            font-weight: bold;
+            text-transform: uppercase;
+            font-size: 0.9em;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        .property-cta:hover {
+            transform: translateY(-2px);
+            background: #e0e0e0;
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+        }
+
+        .back-button-container {
+            text-align: center;
+            margin: 40px 0;
+            position: relative;
+            z-index: 1;
+        }
+        
+        .back-button {
+            display: inline-block;
+            background: rgba(255, 255, 255, 0.1);
+            color: #fff;
+            padding: 15px 30px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: bold;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            backdrop-filter: blur(10px);
+            transition: background 0.3s;
+        }
+        
+        .back-button:hover {
+            background: rgba(255, 255, 255, 0.2);
+        }
+
+        /* --- Carrusel Automático --- */
+        .carousel {
+            width: 100%;
+            height: 250px; /* Altura de la galería */
+            position: relative;
+            overflow: hidden;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        .carousel img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            position: absolute;
+            top: 0;
+            left: 0;
+            opacity: 0;
+            animation: carouselFade 24s infinite; /* 6 fotos x 4s c/u = 24s total */
+        }
+        /* Retrasos para que cada imagen aparezca en su turno */
+        .carousel img:nth-child(1) { animation-delay: 0s; }
+        .carousel img:nth-child(2) { animation-delay: 4s; }
+        .carousel img:nth-child(3) { animation-delay: 8s; }
+        .carousel img:nth-child(4) { animation-delay: 12s; }
+        .carousel img:nth-child(5) { animation-delay: 16s; }
+        .carousel img:nth-child(6) { animation-delay: 20s; }
+
+        /* Animación de transición (crossfade) */
+        @keyframes carouselFade {
+            0%   { opacity: 0; }
+            5%   { opacity: 1; }
+            16.6% { opacity: 1; }
+            21.6% { opacity: 0; }
+            100% { opacity: 0; }
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Video de fondo idéntico al index -->
+    <video class="video-background" autoplay loop muted playsinline>
+        <source src="assets/videos/fondo-lumark.mp4" type="video/mp4">
+    </video>
+
+
+
+    <div class="catalog-container">
+        
+        <!-- Tarjeta 1 -->
+        <article class="property-card">
+            <div class="property-header">Departamento en Venta</div>
+            
+            <!-- Carrusel Automático -->
+            <div class="carousel">
+                <img src="assets/propiedades/propiedad-1/WhatsApp Image 2026-04-28 at 6.56.03 PM.jpeg" alt="Propiedad">
+                <img src="assets/propiedades/propiedad-1/WhatsApp Image 2026-04-28 at 6.56.03 PM (2).jpeg" alt="Propiedad">
+                <img src="assets/propiedades/propiedad-1/WhatsApp Image 2026-04-28 at 6.56.03 PM (3).jpeg" alt="Propiedad">
+                <img src="assets/propiedades/propiedad-1/WhatsApp Image 2026-04-28 at 6.56.04 PM.jpeg" alt="Propiedad">
+                <img src="assets/propiedades/propiedad-1/WhatsApp Image 2026-04-28 at 6.56.04 PM (1).jpeg" alt="Propiedad">
+                <img src="assets/propiedades/propiedad-1/jjj.jpeg" alt="Propiedad">
+            </div>
+
+            <div class="property-body">
+                <div class="property-price">$1,320,000 MXN</div>
+                <div class="property-location"><i class="fas fa-map-marker-alt"></i> Hacienda Santa María | Priv. San Felipe</div>
+                <ul class="property-features">
+                    <li><i class="fas fa-check"></i> 2 recámaras</li>
+                    <li><i class="fas fa-check"></i> 1 baño completo</li>
+                    <li><i class="fas fa-check"></i> Sala y cocina integral</li>
+                    <li><i class="fas fa-check"></i> 2do nivel con loseta</li>
+                    <li><i class="fas fa-check"></i> Protecciones y área de lavado</li>
+                    <li><i class="fas fa-check"></i> 1 cajón de estacionamiento</li>
+                </ul>
+                <div class="property-badge">APLICA CRÉDITO INFONAVIT</div>
+                
+                <a href="https://wa.me/5216633902730" class="property-cta" target="_blank" rel="noopener noreferrer">
+                    <i class="fab fa-whatsapp" style="color: #25d366; font-size: 1.2em; margin-right: 5px; vertical-align: middle;"></i> AGENDAR CITA
+                </a>
+            </div>
+        </article>
+
+        <!-- Tarjeta 2 -->
+        <article class="property-card">
+            <div class="property-header">Oportunidad Única</div>
+            
+            <!-- Carrusel Automático -->
+            <div class="carousel">
+                <img src="assets/propiedades/propiedad-2/WhatsApp Image 2026-04-28 at 6.57.56 PM (1).jpeg" alt="Propiedad">
+                <img src="assets/propiedades/propiedad-2/WhatsApp Image 2026-04-28 at 6.57.56 PM.jpeg" alt="Propiedad">
+                <img src="assets/propiedades/propiedad-2/WhatsApp Image 2026-04-28 at 6.57.57 PM (1).jpeg" alt="Propiedad">
+                <img src="assets/propiedades/propiedad-2/WhatsApp Image 2026-04-28 at 6.57.57 PM.jpeg" alt="Propiedad">
+                <img src="assets/propiedades/propiedad-2/WhatsApp Image 2026-04-28 at 6.57.58 PM (1).jpeg" alt="Propiedad">
+                <img src="assets/propiedades/propiedad-2/WhatsApp Image 2026-04-28 at 6.57.58 PM.jpeg" alt="Propiedad">
+            </div>
+
+            <div class="property-body">
+                <div class="property-price">Zona Alta Plusvalía</div>
+                <div class="property-location"><i class="fas fa-map-marker-alt"></i> Fracc. San Sebastián | Res. Agua Caliente</div>
+                <p style="margin-top: 0; margin-bottom: 20px; font-size: 0.9em; color: #ddd;">
+                    <strong>Moderna y Amplia.</strong> Ideal para familias que buscan seguridad y cercanía a todo.
+                </p>
+                <ul class="property-features">
+                    <li><i class="fas fa-check"></i> 3 Recámaras</li>
+                    <li><i class="fas fa-check"></i> Cocina moderna con acabados</li>
+                    <li><i class="fas fa-check"></i> Espacios amplios e iluminados</li>
+                    <li><i class="fas fa-check"></i> Sala y comedor familiares</li>
+                    <li><i class="fas fa-check"></i> Ubicación privilegiada</li>
+                </ul>
+                <div class="property-badge" style="color: #60a5fa; background: rgba(59, 130, 246, 0.2); border-color: rgba(59, 130, 246, 0.4);">
+                    LISTA PARA HABITAR
+                </div>
+                <a href="https://wa.me/5216633902730" class="property-cta" target="_blank" rel="noopener noreferrer">
+                    <i class="fab fa-whatsapp" style="color: #25d366; font-size: 1.2em; margin-right: 5px; vertical-align: middle;"></i> SOLICITAR INFO
+                </a>
+            </div>
+        </article>
+
+        <!-- Tarjeta 3 -->
+        <article class="property-card">
+            <div class="property-header">Casa Ampliada</div>
+            
+            <!-- Carrusel Automático -->
+            <div class="carousel">
+                <img src="assets/propiedades/propiedad-3/WhatsApp Image 2026-04-28 at 7.06.39 PM (1).jpeg" alt="Propiedad">
+                <img src="assets/propiedades/propiedad-3/WhatsApp Image 2026-04-28 at 7.06.39 PM (2).jpeg" alt="Propiedad">
+                <img src="assets/propiedades/propiedad-3/WhatsApp Image 2026-04-28 at 7.06.39 PM (3).jpeg" alt="Propiedad">
+                <img src="assets/propiedades/propiedad-3/WhatsApp Image 2026-04-28 at 7.06.39 PM (4).jpeg" alt="Propiedad">
+                <img src="assets/propiedades/propiedad-3/WhatsApp Image 2026-04-28 at 7.06.39 PM (5).jpeg" alt="Propiedad">
+                <img src="assets/propiedades/propiedad-3/WhatsApp Image 2026-04-28 at 7.06.39 PM.jpeg" alt="Propiedad">
+            </div>
+
+            <div class="property-body">
+                <div class="property-price">$1,600,000 MXN</div>
+                <div class="property-location"><i class="fas fa-map-marker-alt"></i> Laurel II | Privada Baku</div>
+                <ul class="property-features">
+                    <li><i class="fas fa-check"></i> 2 Niveles | 2 Recámaras</li>
+                    <li><i class="fas fa-check"></i> Sala y cocina ampliadas</li>
+                    <li><i class="fas fa-check"></i> Cocina integral y loseta</li>
+                    <li><i class="fas fa-check"></i> Estacionamiento bardeado</li>
+                    <li><i class="fas fa-check"></i> Frente a plazas y escuelas</li>
+                </ul>
+                <div class="property-badge" style="color: #c084fc; background: rgba(168, 85, 247, 0.2); border-color: rgba(168, 85, 247, 0.4);">
+                    LIBRE DE GRAVAMEN
+                </div>
+                <a href="https://wa.me/5216633902730" class="property-cta" target="_blank" rel="noopener noreferrer">
+                    <i class="fab fa-whatsapp" style="color: #25d366; font-size: 1.2em; margin-right: 5px; vertical-align: middle;"></i> AGENDAR CITA
+                </a>
+            </div>
+        </article>
+        
+    </div>
+    
+    <div class="back-button-container">
+        <a href="index.html" class="back-button"><i class="fas fa-arrow-left"></i> Volver a la Tarjeta de Inicio</a>
+    </div>
+
+
+</body>
+
+</html>

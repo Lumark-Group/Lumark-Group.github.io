@@ -1,0 +1,9 @@
+version: '3.8'
+
+services:
+  lumark-web:
+    build: .
+    ports:
+      - "8080:80"
+    container_name: lumark_tarjeta_web
+    restart: unless-stopped
